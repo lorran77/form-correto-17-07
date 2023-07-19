@@ -11,22 +11,9 @@
 </head>
 
 <body>
+    
     <div id="output">
-       
-        <div class="div">
-            <form action="">
 
-                <h2>Cadastro de Produto</h2>
-
-                <input type="number" placeholder="Digite uma ID única" id="id" name="id">
-                <input type="text" placeholder="Digite o nome do produto" id="nome" name="nome">
-                <input type="number" placeholder="Digite o preço" id="preco" name="preco">
-
-                <input type="button" value="Cadastrar Produto" id="btn-inserir" name="btn-inserir"
-                    onclick="cadastrar()">
-
-            </form>
-        </div>
 
         <div class="div">
             <table class="tabela" id="tabela">
@@ -35,16 +22,23 @@
                     <th>ID</th>
                     <th>PRODUTO</th>
                     <th>PREÇO</th>
+                    <th>AÇÕES</th>
                 </tr>
 
             </table>
+            <button id="btn-cadastro" onclick="mostraCadastro()">Inserir novo produto</button>
         </div>
 
-        <div class="div">
 
-            <input class="input-apagar" type="number" id="remover">
-            <input type="button" class="btn-apagar" value="apagar" onclick="apagar()">
-
+        <div id="div-cadastrar" class="div-cadastrar-inativo">
+            <form action="">
+                <h2>Cadastro de Produto</h2>
+                <input type="number" placeholder="Digite uma ID única" id="id" name="id">
+                <input type="text" placeholder="Digite o nome do produto" id="nome" name="nome">
+                <input type="number" placeholder="Digite o preço" id="preco"  name="preco">
+                <input type="button" value="Cadastrar Produto" id="btn-inserir" name="btn-inserir"
+                    onclick="cadastrar()">
+            </form>
         </div>
 
     </div>
