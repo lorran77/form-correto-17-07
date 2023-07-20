@@ -30,12 +30,12 @@ function getprodutos()
 produtos.forEach((produto) => {
     
     //cria uma linha na tabela para começar a inserir os dados do produto
-    tabela.innerHTML += `<tr id="a${produto.id}">`;
+    tabela.innerHTML += `<tr id="linha${produto.id}">`;
 
     //loop mais interno for: irá percorrer as propriedades do produto "da vez"    
     for (let propriedade in produto) {
         //irá inserir na tabela cada um dos valores de cada uma das propriedades daquele produto
-        document.querySelector("#" + 'a' + produto.id).innerHTML += `<td> ${produto[propriedade]} </td>`;
+        document.querySelector("#" + 'linha' + produto.id).innerHTML += `<td> ${produto[propriedade]} </td>`;
     }
     //inserindo um botão de DELETE
     // let btnDeletar = `<td><button class=btn-apagar" onclick="delete({produto.id})">APAGAR</td>`
@@ -43,14 +43,14 @@ produtos.forEach((produto) => {
     //primeiro criamos o BOTAO, aplicamos as propriedades e depois o criamos um TD pra ele                        
     let botaoApagar = document.createElement('button');
     botaoApagar.setAttribute('class', 'btn-apagar');
-    botaoApagar.setAttribute('onclick', 'apagarProduto()');
+    botaoApagar.setAttribute('onclick', `deleta(linha${produto.id})`);
     botaoApagar.innerHTML = 'APAGAR'
 
     //inserindo um botão de UPDATE:                
     // primeiro criamos o BOTAO, aplicamos as propriedades e depois o criamos um TD pra ele                        
     let botaoEditar = document.createElement('button');
     botaoEditar.setAttribute('class', 'btn-editar');
-    botaoEditar.setAttribute('onclick', 'edit({produto.id})');
+    botaoEditar.setAttribute('onclick', `mostraEditarProduto(linha${produto.id})`);
     botaoEditar.innerHTML = 'EDITAR';
 
     //criando TDs e anexando a TR
@@ -59,7 +59,7 @@ produtos.forEach((produto) => {
     td.appendChild(botaoEditar);
     td.appendChild(botaoApagar);
 
-    tr = document.querySelector("#" + 'a' + produto.id)   ;
+    tr = document.querySelector("#" + 'linha' + produto.id)   ;
     tr.appendChild(td);
 
     //fecha a linha da tabela
@@ -94,6 +94,24 @@ getprodutos();
 
 }
 
+function mostraEditarProduto()
+{
+    // let obj = produtos.find(prod => prod.id == produtoSelecionado);
+    // let inputId = document.querySelector('#id').value=obj.id;
+    // let inputNome = document.querySelector('#nome').value=obj.nome;
+    // let inputPreco = document.querySelector('#preco').value=obj.preco;
+
+    const div = document.getElementById('div-editar');
+if (div.classList.contains('div-editar-inativo')) {
+    div.classList.remove('div-editar-inativo');
+    div.classList.add('div-editar-ativo');
+}
+else {
+    div.classList.remove('div-editar-ativo');
+    div.classList.add('div-editar-inativo');
+}  
+}
+
 
 
 function mostraCadastro() 
@@ -121,32 +139,58 @@ function limpaTabela()
 
 
 
-function apagarProduto()
+function deleta(produtoSelecionado)
 {
-    produtos.forEach((produto) => {
+    let obj = produtos.find(prod => prod.id == produtoSelecionado);
+    let indexDeletar = produtos.indexOf(obj);
 
-        // let tableSelecionada = document.querySelector('#tabela');
-        let idSelecionado = produto;
+    produtos.splice(indexDeletar, 1);
 
-        delete innerHTML(idSelecionado);
-    });
+    console.log(obj, ' ',indexDeletar);
 
-    
+    limpaTabela();
+    getprodutos();
+
+// find = encontrar objeto dentro de produtos e retornar o objeto que passar no teste
+// indexOf = descobre no vetor [produtos] o indice do objeto(obj)
+// splice =
+// console.log = teste no terminal
+// DAO Data Access Object <---
+// DAL Data Access Layer
 }
 
-// produtos.forEach((produto) => {
 
-        
-    //     let tableSelecionada = document.querySelector('#tabela');
-    //     let idSelecionado = produto;
+function editConfirmado(editarProduto)
+{
+    limpaTabela();
+    getprodutos();
 
-    //     let deletor = tableSelecionada.childNodes[idSelecionado];
-    //     tableSelecionada.removeChild(deletor);
+    let obj = produtos.find(prod => prod.id == editarProduto);
+    let indexEditar = produtos.indexOf(obj); 
 
-    // });
+    produtos.splice(1, 2, `${nomeInsere}`, `${precoInsere}`);
+
+    produtos.push(obj);
+}
+
+// copiar mostra cadastro para editar cadastro
+// criar nova div para edição de dados
+// renomear classes
+// onclick edit 
+//  puxar funcoes limpa tabela e get produtos no começo
+
+//  substituir com splice e indexof
+
+//  1- indice do vetor 
+//  2- quantos items vao ser apagados(2)
+//  3- (2, 1, 'melancia', )
+
+//  deixar apenas id e editar o resto
+//  na tela de edição devera ser puxado os valores já existentes do objeto
 
 
-    // delete produtos.id;
-    // delete produtos.nome;
-    // delete produtos.preco;    
+
+
+
+
 
