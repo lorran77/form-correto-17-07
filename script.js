@@ -43,14 +43,14 @@ produtos.forEach((produto) => {
     //primeiro criamos o BOTAO, aplicamos as propriedades e depois o criamos um TD pra ele                        
     let botaoApagar = document.createElement('button');
     botaoApagar.setAttribute('class', 'btn-apagar');
-    botaoApagar.setAttribute('onclick', `deleta(linha${produto.id})`);
+    botaoApagar.setAttribute('onclick', `deleta(${produto.id})`);
     botaoApagar.innerHTML = 'APAGAR'
 
     //inserindo um botão de UPDATE:                
     // primeiro criamos o BOTAO, aplicamos as propriedades e depois o criamos um TD pra ele                        
     let botaoEditar = document.createElement('button');
     botaoEditar.setAttribute('class', 'btn-editar');
-    botaoEditar.setAttribute('onclick', `mostraEditarProduto(linha${produto.id})`);
+    botaoEditar.setAttribute('onclick', `mostraEditarProduto(${produto.id})`);
     botaoEditar.innerHTML = 'EDITAR';
 
     //criando TDs e anexando a TR
@@ -67,6 +67,15 @@ produtos.forEach((produto) => {
 });
 }
 
+function criaId()
+{
+    let objId = produtos.find(prod => prod.id);
+
+    // produtos.id.forEach((objId) =>
+    // {
+    //     objId = produtos + 1;
+    // });
+}
 
 
 function cadastrar() 
@@ -74,16 +83,16 @@ function cadastrar()
 //Esta função irá cadastrar um novo produto no array de produtos
 
 //PASSO 1: pegando as informações que o usuario digitou e colocando em variaveis
-const idInsere = document.querySelector('#id').value;
+const idInsere = parseInt(document.querySelector('#id').value=criaId());
 const nomeInsere = document.querySelector('#nome').value;
-const precoInsere = document.querySelector('#preco').value;
+const precoInsere = parseInt(document.querySelector('#preco').value);
 
 //PASSO 2: criando um objeto produto 
 let produto = 
 {
     id: idInsere,
     nome: nomeInsere,
-    preco: precoInsere
+    preco: `R$ ${precoInsere}`
 }
 
 //PASSO 3: inserindo o objeto PRODUTO no vetor PRODUTOS
@@ -94,12 +103,23 @@ getprodutos();
 
 }
 
-function mostraEditarProduto()
+function mostraEditarProduto(produtoEditar)
+{ 
+const cadastroDiv= document.getElementById('div-cadastrar');
+
+if(cadastroDiv.classList.contains('div-cadastrar-ativo'))
 {
-    // let obj = produtos.find(prod => prod.id == produtoSelecionado);
-    // let inputId = document.querySelector('#id').value=obj.id;
-    // let inputNome = document.querySelector('#nome').value=obj.nome;
-    // let inputPreco = document.querySelector('#preco').value=obj.preco;
+    cadastroDiv.classList.remove('div-cadastrar-ativo');
+    cadastroDiv.classList.add('div-cadastrar-inativo');
+}
+
+
+
+    let obj = produtos.find(prod => prod.id == produtoEditar);
+
+    document.querySelector('#idedit').value=obj.id;
+    document.querySelector('#nomeedit').value=obj.nome;
+    document.querySelector('#precoedit').value=obj.preco;
 
     const div = document.getElementById('div-editar');
 if (div.classList.contains('div-editar-inativo')) {
@@ -116,6 +136,15 @@ else {
 
 function mostraCadastro() 
 {
+const editarDiv = document.getElementById('div-editar');
+
+if(editarDiv.classList.contains('div-editar-ativo'))
+{
+    editarDiv.classList.remove('div-editar-ativo');
+    editarDiv.classList.add('div-editar-inativo');
+}
+
+
 //mostra ou oculta a tela de cadastro quando o usuário clica no botão abaixo da tabela
 const div = document.getElementById('div-cadastrar');
 if (div.classList.contains('div-cadastrar-inativo')) {
@@ -146,8 +175,6 @@ function deleta(produtoSelecionado)
 
     produtos.splice(indexDeletar, 1);
 
-    console.log(obj, ' ',indexDeletar);
-
     limpaTabela();
     getprodutos();
 
@@ -160,18 +187,29 @@ function deleta(produtoSelecionado)
 }
 
 
-function editConfirmado(editarProduto)
+function salvarAlteracoes()
 {
-    limpaTabela();
-    getprodutos();
+    let idEdit2 = parseInt(document.getElementById('idedit').value);
+    let nomeEdit2 = document.getElementById('nomeedit').value;
+    let precoEdit2 = parseInt(document.getElementById('precoedit').value);
 
-    let obj = produtos.find(prod => prod.id == editarProduto);
+    let obj = produtos.find(prod => prod.id == idEdit2);
     let indexEditar = produtos.indexOf(obj); 
 
-    produtos.splice(1, 2, `${nomeInsere}`, `${precoInsere}`);
+    let objNovo = 
+    {
+        id: idEdit2,
+        nome: nomeEdit2,
+        preco: `R$ ${precoEdit2}`
+    }
 
-    produtos.push(obj);
+    produtos.splice(indexEditar, 1, objNovo); 
+
+    limpaTabela();
+    getprodutos();
 }
+
+// APENAS ANOTAÇÕES-------------------------------------------------------------------------------
 
 // copiar mostra cadastro para editar cadastro
 // criar nova div para edição de dados
@@ -186,7 +224,12 @@ function editConfirmado(editarProduto)
 //  3- (2, 1, 'melancia', )
 
 //  deixar apenas id e editar o resto
-//  na tela de edição devera ser puxado os valores já existentes do objeto
+//  na tela de edição devera ser puxado os valores já existentes do objeto(usar find sem indexof mais 3 comandos para inserir) s
+
+// comecar com find
+// readonly no id
+
+
 
 
 
