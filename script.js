@@ -7,7 +7,7 @@
 //criando um array de objetos. cada objeto tem 3 propriedades, cada propriedade tem um valor
 let produtos =
 [
-    { id: 1, nome: 'sapato', preco: 100.00 },
+    { id: 1, nome: 'sapato', preco: 150.00},
     { id: 2, nome: 'sandalia', preco: 250.00 },
     { id: 3, nome: 'cinto', preco: 450.00 },
     { id: 4, nome: 'bolsa', preco: 650.00 }
@@ -57,6 +57,7 @@ produtos.forEach((produto) => {
     let td = document.createElement('td');                
     
     td.appendChild(botaoEditar);
+    // td.appendChild(document.createTextNode).value=''; 
     td.appendChild(botaoApagar);
 
     tr = document.querySelector("#" + 'linha' + produto.id)   ;
@@ -69,12 +70,13 @@ produtos.forEach((produto) => {
 
 function criaId()
 {
-    let objId = produtos.find(prod => prod.id);
+    let vetorCorte = produtos.slice(-1);
+    
+    let ultimoElemento = vetorCorte[0].id;
 
-    // produtos.id.forEach((objId) =>
-    // {
-    //     objId = produtos + 1;
-    // });
+    let proximo = parseInt(ultimoElemento + 1);
+
+    return proximo;
 }
 
 
@@ -83,7 +85,7 @@ function cadastrar()
 //Esta função irá cadastrar um novo produto no array de produtos
 
 //PASSO 1: pegando as informações que o usuario digitou e colocando em variaveis
-const idInsere = parseInt(document.querySelector('#id').value=criaId());
+const idInsere = parseInt(document.querySelector('#id').value);
 const nomeInsere = document.querySelector('#nome').value;
 const precoInsere = parseInt(document.querySelector('#preco').value);
 
@@ -92,7 +94,7 @@ let produto =
 {
     id: idInsere,
     nome: nomeInsere,
-    preco: `R$ ${precoInsere}`
+    preco: precoInsere
 }
 
 //PASSO 3: inserindo o objeto PRODUTO no vetor PRODUTOS
@@ -101,6 +103,10 @@ produtos.push(produto);
 limpaTabela();
 getprodutos();    
 
+alert('Produto cadastrado.');
+const cadastrarAtivo = document.getElementById('div-cadastrar');
+cadastrarAtivo.classList.remove('div-cadastrar-ativo');
+cadastrarAtivo.classList.add('div-cadastrar-inativo');
 }
 
 function mostraEditarProduto(produtoEditar)
@@ -156,6 +162,9 @@ else {
     div.classList.add('div-cadastrar-inativo');
 }
 
+document.getElementById('id').value=criaId();
+document.getElementById('nome').value='';
+document.getElementById('preco').value='';
 }
 
 
@@ -170,6 +179,12 @@ function limpaTabela()
 
 function deleta(produtoSelecionado)
 {
+    let textConfirmacao = `Confirmar a exclusão do registro? 
+Obs: Ação permanente!!!`;
+
+    if(confirm(textConfirmacao) == true)
+    {
+
     let obj = produtos.find(prod => prod.id == produtoSelecionado);
     let indexDeletar = produtos.indexOf(obj);
 
@@ -177,7 +192,11 @@ function deleta(produtoSelecionado)
 
     limpaTabela();
     getprodutos();
-
+    }
+    else
+    {
+        alert('Operação cancelada.')
+    }
 // find = encontrar objeto dentro de produtos e retornar o objeto que passar no teste
 // indexOf = descobre no vetor [produtos] o indice do objeto(obj)
 // splice =
@@ -200,13 +219,18 @@ function salvarAlteracoes()
     {
         id: idEdit2,
         nome: nomeEdit2,
-        preco: `R$ ${precoEdit2}`
+        preco: precoEdit2
     }
 
     produtos.splice(indexEditar, 1, objNovo); 
 
     limpaTabela();
     getprodutos();
+
+    alert('Alterações salvas.');
+    const editarAtivo = document.getElementById('div-editar');
+    editarAtivo.classList.remove('div-editar-ativo');
+    editarAtivo.classList.add('div-editar-inativo');
 }
 
 // APENAS ANOTAÇÕES-------------------------------------------------------------------------------
