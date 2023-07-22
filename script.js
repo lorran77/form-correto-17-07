@@ -53,12 +53,17 @@ produtos.forEach((produto) => {
     botaoEditar.setAttribute('onclick', `mostraEditarProduto(${produto.id})`);
     botaoEditar.innerHTML = 'EDITAR';
 
+    let botaoView = document.createElement('button');
+    botaoView.setAttribute('class', 'btn-view');
+    botaoView.setAttribute('onclick', `mostraViewProduto(${produto.id})`);
+    botaoView.innerHTML = 'DETALHES';
+
     //criando TDs e anexando a TR
     let td = document.createElement('td');                
     
     td.appendChild(botaoEditar);
-    // td.appendChild(document.createTextNode).value=''; 
     td.appendChild(botaoApagar);
+    td.appendChild(botaoView);
 
     tr = document.querySelector("#" + 'linha' + produto.id)   ;
     tr.appendChild(td);
@@ -109,14 +114,54 @@ cadastrarAtivo.classList.remove('div-cadastrar-ativo');
 cadastrarAtivo.classList.add('div-cadastrar-inativo');
 }
 
+function mostraViewProduto(produtoview)
+{
+    const cadastroDiv = document.getElementById('div-cadastrar');
+    if (cadastroDiv.classList.contains('div-cadastrar-ativo')) 
+    {
+        cadastroDiv.classList.remove('div-cadastrar-ativo');
+        cadastroDiv.classList.add('div-cadastrar-inativo');
+    }
+
+    const editarDiv = document.getElementById('div-editar');
+    if (editarDiv.classList.contains('div-editar-ativo')) 
+    {
+        editarDiv.classList.remove('div-editar-ativo');
+        editarDiv.classList.add('div-editar-inativo');
+    }
+
+    let objview = produtos.find(prod => prod.id == produtoview);
+
+    document.querySelector('#idview').value=objview.id;
+    document.querySelector('#nomeview').value=objview.nome;
+    document.querySelector('#precoview').value=objview.preco;
+
+    const div = document.getElementById('div-view');
+if (div.classList.contains('div-view-inativo')) {
+    div.classList.remove('div-view-inativo');
+    div.classList.add('div-view-ativo');
+}
+else {
+    div.classList.remove('div-view-ativo');
+    div.classList.add('div-view-inativo');
+}
+}
+
 function mostraEditarProduto(produtoEditar)
 { 
-const cadastroDiv= document.getElementById('div-cadastrar');
 
+const cadastroDiv= document.getElementById('div-cadastrar');
 if(cadastroDiv.classList.contains('div-cadastrar-ativo'))
 {
     cadastroDiv.classList.remove('div-cadastrar-ativo');
     cadastroDiv.classList.add('div-cadastrar-inativo');
+}
+
+const viewDiv = document.getElementById('div-view');
+if(viewDiv.classList.contains('div-view-ativo'))
+{
+    viewDiv.classList.remove('div-view-ativo');
+    viewDiv.classList.add('div-view-inativo');
 }
 
 
@@ -142,12 +187,19 @@ else {
 
 function mostraCadastro() 
 {
-const editarDiv = document.getElementById('div-editar');
 
+const editarDiv = document.getElementById('div-editar');
 if(editarDiv.classList.contains('div-editar-ativo'))
 {
     editarDiv.classList.remove('div-editar-ativo');
     editarDiv.classList.add('div-editar-inativo');
+}
+
+const viewDiv = document.getElementById('div-view');
+if(viewDiv.classList.contains('div-view-ativo'))
+{
+    viewDiv.classList.remove('div-view-ativo');
+    viewDiv.classList.add('div-view-inativo');
 }
 
 
@@ -233,6 +285,15 @@ function salvarAlteracoes()
     editarAtivo.classList.add('div-editar-inativo');
 }
 
+
+function fecharView()
+{   
+    const divView = document.getElementById('div-view');
+    
+    divView.classList.remove('div-view-ativo');
+    divView.classList.add('div-view-inativo');
+    
+}
 // APENAS ANOTAÇÕES-------------------------------------------------------------------------------
 
 // copiar mostra cadastro para editar cadastro

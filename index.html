@@ -53,6 +53,28 @@
             </form>
         </div>
 
+<!-- View -->
+        <div id="div-view" class="div-view-inativo">
+
+            <form action="">
+                <h2>Detalhes</h2>
+
+                
+                <label>ID</label>
+                <input type="number" placeholder="ID única" id="idview" name="id" readonly>
+
+                <label>Nome</label>
+                <input type="text" placeholder="nome do produto" id="nomeview" name="nome" readonly>
+
+                <label>Preço</label>
+                <input type="number" placeholder="preço" id="precoview"  name="preco" readonly>
+
+                <input type="button" value="Fechar Janela" id="btn-inserir" name="btn-inserir"
+                    onclick="fecharView()">
+            </form>
+            
+        </div>
+
     </div>
 
 <script src="script.js"></script>

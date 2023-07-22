@@ -47,13 +47,50 @@ h2{
     display: none;
 }
 
-.div-editar-ativo{    
+.div-editar-ativo{ 
+    
+    flex-direction: column;
+    width: 40%;
+    min-width:30%;
+    text-align: center;
+    margin: 4vw;
+    display: block;
+
+}
+
+.div-view-inativo{    
+    width: 40%;
+    min-width:30%;
+    text-align: center;
+    margin: 4vw;
+    display: none;
+}
+
+.div-view-ativo{    
     width: 40%;
     min-width:30%;
     text-align: center;
     margin: 4vw;
     display: block;
 }
+
+#idview, #nomeview, #precoview, #label-view
+{
+    text-align: center;
+}
+
+form
+{
+    display: flex;
+    flex-direction: column;
+}
+
+/* .flexbox-view
+{
+    display: flex;
+    flex-direction: column;
+    
+} */
 
 button{
     margin-top: 5px;
@@ -112,6 +149,12 @@ th, td, tr{
 .btn-apagar{
     font-size: 0.6em;
     background-color: rgba(220, 38, 13, 0.9); ;
+
+}
+
+.btn-view{
+    font-size: 0.6em;
+    background-color: rgba(21, 100, 136, 0.6); ;
 
 }
 
