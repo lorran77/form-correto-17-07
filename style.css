@@ -15,8 +15,15 @@ h2{
     font-size: 1.5em;
     font-weight: 500;
     margin-bottom: 0.5em;
+    align-self: center;
 }
-.div{    
+.div{  
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
     width: 40%;
     min-width:30%;
     text-align: center;
@@ -35,8 +42,11 @@ h2{
     width: 40%;
     min-width:30%;
     text-align: center;
-    margin: 4vw;
-    display: block;
+    margin: 1vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
 }
 
 .div-editar-inativo{    
@@ -93,13 +103,13 @@ form
 } */
 
 button{
-    margin-top: 5px;
+    margin-top: 15px;
     padding:6px;
-    background-color: rgba(136, 64, 21, 0.6);
+    background-color: rgba(21, 136, 31, 0.6);
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.8em;
-    align-self: flex-end;
+    align-self: center;
     color: white;
 }
 
@@ -109,7 +119,7 @@ button:hover {
 
 #output {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;  
@@ -128,21 +138,40 @@ table{
     border: 5px solid black;
     margin: 1em 0 0 0;    
     border-spacing: 0;
-    border-radius: 15px;
+    border-radius: 15px; 
 }
 
 
-th, td, tr{
+
+/* th, td, tr{
     border: 2.5px solid black;
     margin: 0;
     padding: 10px 40px;
     border-spacing: 0;
     line-height: 1.5em;
+} */
+
+tr
+{
+    border: 2.5px solid black;
+    border-spacing: 50px;
+    padding: 10px 40px;
+    line-height: 1.5em;   
+}
+
+
+
+
+th
+{
+    border-bottom: 5px solid black; 
+    padding: 10px 100px;
+    line-height: 1.5em;
 }
 
 .btn-editar{
     font-size: 0.6em;
-    background-color: rgba(136, 64, 21, 0.6); ;
+    background-color: #cfd649; ;
 
 }
 
